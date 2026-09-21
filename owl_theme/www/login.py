@@ -45,11 +45,26 @@ def get_context(context):
 	context["disable_signup"] = cint(frappe.get_website_settings("disable_signup"))
 	context["show_footer_on_login"] = cint(frappe.get_website_settings("show_footer_on_login"))
 	context["disable_user_pass_login"] = cint(frappe.get_system_settings("disable_user_pass_login"))
-	context["logo"] =  frappe.db.get_single_value("Owl Theme Settings", "app_logo") or get_app_logo()
-	context["bg_color"] =  frappe.db.get_single_value("Owl Theme Settings", "background_color")
-	context["app_name"] = frappe.db.get_single_value("Owl Theme Settings", "app_name") or (
+	context.hoot_skin = frappe.db.get_single_value("Owl Theme Settings", "light_theme_skin")
+	context["logo"] =  frappe.db.get_value("Hoot Skin", context.hoot_skin, "app_logo") or get_app_logo()
+	context["logo_height"] =  frappe.db.get_value("Hoot Skin", context.hoot_skin, "app_logo_height") or 42
+	context["bg_color"] =  frappe.db.get_value("Hoot Skin", context.hoot_skin, "background_color")
+	card_bg_color =  frappe.db.get_value("Hoot Skin", context.hoot_skin, "card_background_color")
+	card_bg_image =  frappe.db.get_value("Hoot Skin", context.hoot_skin, "card_background_image")
+	card_bg_blur = frappe.db.get_value("Hoot Skin", context.hoot_skin, "background_image_blur") or 0
+	card_bg_brightness = (frappe.db.get_value("Hoot Skin", context.hoot_skin, "background_image_brightness") or 0) + 100
+	if card_bg_blur != 0:
+		card_bg_blur = int(5*((card_bg_blur/100)))
+	context["card_style"] = f"overflow: hidden !important; padding: 0; background: url('{ card_bg_image }') no-repeat center center / cover;" if card_bg_image else f"background-color: {card_bg_color} !important"
+	context["form_style"] = f"padding: 45px; margin: 0; max-width: 100%; backdrop-filter: blur({card_bg_blur}px) brightness({card_bg_brightness}%);" if card_bg_image else ""
+	app_name = frappe.db.get_value("Hoot Skin", context.hoot_skin, "app_name") or (
 		frappe.get_website_settings("app_name") or frappe.get_system_settings("app_name") or _("Frappe")
 	)
+	login_message = frappe.db.get_value("Hoot Skin", context.hoot_skin, "login_message")
+	context["login_message"] = login_message or _("Login to {}").format(app_name)
+	context["app_name_color"] = frappe.db.get_value('Hoot Skin', context.hoot_skin, "app_name_color")
+	if card_bg_image:
+		context["texts_style"] = f'color: {frappe.db.get_value("Hoot Skin", context.hoot_skin, "card_text_color")} !important;'
 
 	signup_form_template = frappe.get_hooks("signup_form_template")
 	if signup_form_template and len(signup_form_template):

@@ -28,7 +28,8 @@ app_license = "mit"
 # app_include_css = "/assets/owl_theme/css/owl_theme.css"
 app_include_js = [
     "owl_theme.bundle.js",
-    ]
+    "common.js"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/owl_theme/css/owl_theme.css"
@@ -45,7 +46,9 @@ app_include_js = [
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "User" : "public/js/user.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -246,4 +249,8 @@ app_include_js = [
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+fixtures = [
+    {"dt": "Hoot Skin"}
+]
 

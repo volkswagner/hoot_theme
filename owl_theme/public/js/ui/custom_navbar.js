@@ -2,29 +2,47 @@
 frappe.ui.toolbar.Toolbar = class CustomNavbar extends frappe.ui.toolbar.Toolbar{
     constructor(){
         super();
-        this.changeStyle();
+        $(() => {
+            this.changeStyle();
+        });
     }
     changeStyle(){
-        frappe.db.get_doc("Owl Theme Settings", "Owl Theme Settings")
-        .then(doc => {
-            if (doc) {
-                $(".navbar.navbar-expand").css("background-color", doc.navbar_background_color);
-                $("#navbar-breadcrumbs a").css("background-color", `${doc.navbar_text_color} !important`);
+        const apply_style = () => {
+            frappe.call({
+                method: "owl_theme.owl_theme.doctype.owl_theme_settings.owl_theme_settings.get_skin_settings",
+                args: {
+                    user: frappe.session.user,
+                    theme: $("[data-theme]").attr("data-theme")
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        if (r.message.skin) {
+                            owl_theme_utils.create_stylesheet(r.message.skin);
+                        }
 
-                $(".main-section").css("background-color", doc.main_page_background_color);
-                $(".content.page-container").css("background-color", doc.main_page_background_color);
+                        if (r.message.autoreload_on_theme_change) {
+                            const html = document.querySelector("html");
 
+                            const observerCallback = (mutationList, observer) => {
+                                for (const mutation of mutationList) {
+                                    if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+                                        return frappe.ui.toolbar.clear_cache();
+                                    }
+                                }
+                            };
 
+                            const observer = new MutationObserver(observerCallback);
+                            observer.observe(html, {attributes: true});
+                        }
+                    }
+                }
+            });
+        }
 
-                $(".layout-main-section").css("background-color", doc.main_page_card_container_background_color);
+        apply_style();
 
-
-                // cards 
-                // $(".widget.links-widget-box").css("background-color", `${doc.cards_background_color} !important`);
-                // $(".ce-header span").css("color", doc.cards_text_color);
-            }
-        }).catch(error => {
-            console.error("Error details:", error);
+        $(document).on("page-change", () => {
+            apply_style();
         });
     }
 }

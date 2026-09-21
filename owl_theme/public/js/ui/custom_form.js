@@ -1,12 +1,11 @@
-// frappe.ui.form.Form = class CustomForm extends frappe.ui.form.Form {
-// 	constructor(doctype, parent, in_form, doctype_layout_name) {
-// 		super(doctype, parent, in_form, doctype_layout_name);
-// 		this.changeStyle();
-// 	}
-// 	changeStyle() {
-// 		console.log($(".form-layout"), "form-layout");
-// 		}
-// };
+frappe.ui.form.Form = class CustomForm extends frappe.ui.form.Form {
+	constructor(doctype, parent, in_form, doctype_layout_name) {
+		super(doctype, parent, in_form, doctype_layout_name);
+		this.changeStyle();
+	}
+	changeStyle() {
+	}
+};
 
 frappe.ui.form.Form.prototype.setup_std_layout = function() {
 	this.form_wrapper = $("<div></div>").appendTo(this.layout_main);

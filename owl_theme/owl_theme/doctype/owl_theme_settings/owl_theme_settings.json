@@ -5,176 +5,50 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "buttons_section",
-  "primary_buttons_background_color",
-  "secondary_buttons_background_color",
-  "column_break_ojph",
-  "primary_buttons_text_color",
-  "secondary_buttons_text_color",
-  "website_settings_section",
-  "app_name",
-  "app_name_color",
-  "background_color",
-  "column_break_awya",
-  "app_logo",
-  "background_image",
-  "app_settings_section",
-  "splash_image",
-  "favicon",
-  "main_page_background_color",
-  "main_page_card_container_background_color",
-  "cards_background_color",
-  "cards_title_text_color",
-  "cards_text_color",
-  "column_break_hkcn",
-  "navbar_background_color",
-  "navbar_text_color",
-  "sidebar_background_color",
-  "sidebar_text_color",
-  "list_page_background_color",
-  "form_background_color"
+  "light_theme_skin",
+  "column_break_ycho",
+  "dark_theme_skin",
+  "section_break_kzcb",
+  "autoreload_on_theme_change",
+  "allow_user_customization"
  ],
  "fields": [
   {
-   "fieldname": "app_logo",
-   "fieldtype": "Attach Image",
-   "label": "App Logo"
+   "fieldname": "light_theme_skin",
+   "fieldtype": "Link",
+   "label": "Light Theme Skin",
+   "link_filters": "[[\"Owl Theme Skin\",\"enabled\",\"=\",1],[\"Owl Theme Skin\",\"for_theme\",\"=\",\"Light\"]]",
+   "options": "Hoot Skin"
   },
   {
-   "description": "this will override the #Background Color Property",
-   "fieldname": "background_image",
-   "fieldtype": "Attach Image",
-   "label": "Background Image"
-  },
-  {
-   "fieldname": "primary_buttons_background_color",
-   "fieldtype": "Color",
-   "label": "Primary Buttons Background Color"
-  },
-  {
-   "fieldname": "secondary_buttons_background_color",
-   "fieldtype": "Color",
-   "label": "Secondary Buttons Background Color"
-  },
-  {
-   "fieldname": "app_name",
-   "fieldtype": "Data",
-   "label": "App Name"
-  },
-  {
-   "fieldname": "background_color",
-   "fieldtype": "Color",
-   "label": "Background Color"
-  },
-  {
-   "fieldname": "website_settings_section",
-   "fieldtype": "Section Break",
-   "label": "Website Settings"
-  },
-  {
-   "fieldname": "app_settings_section",
-   "fieldtype": "Section Break",
-   "label": "App Settings"
-  },
-  {
-   "fieldname": "column_break_hkcn",
+   "fieldname": "column_break_ycho",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "navbar_background_color",
-   "fieldtype": "Color",
-   "label": "Navbar Background Color"
+   "description": "Note: Website customization is only supported by Light Theme Skins.",
+   "fieldname": "dark_theme_skin",
+   "fieldtype": "Link",
+   "label": "Dark Theme Skin",
+   "link_filters": "[[\"Owl Theme Skin\",\"enabled\",\"=\",1],[\"Owl Theme Skin\",\"for_theme\",\"=\",\"Dark\"]]",
+   "options": "Hoot Skin"
   },
   {
-   "fieldname": "navbar_text_color",
-   "fieldtype": "Color",
-   "label": "Navbar Text Color"
+   "fieldname": "section_break_kzcb",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "sidebar_background_color",
-   "fieldtype": "Color",
-   "label": "Sidebar Background Color"
+   "default": "1",
+   "description": "When disabled, a reload is required for the skin changes to take effect. Note: Changing this field also requires a reload.",
+   "fieldname": "autoreload_on_theme_change",
+   "fieldtype": "Check",
+   "label": "Automatically reload desk each time the theme is changed"
   },
   {
-   "fieldname": "sidebar_text_color",
-   "fieldtype": "Color",
-   "label": "Sidebar Text Color"
-  },
-  {
-   "fieldname": "app_name_color",
-   "fieldtype": "Color",
-   "label": "App Name Color"
-  },
-  {
-   "description": "An icon file with .ico extension. Should be 16 x 16 px. Generated using a favicon generator. [favicon-generator.org]",
-   "fieldname": "favicon",
-   "fieldtype": "Attach Image",
-   "label": "FavIcon"
-  },
-  {
-   "fieldname": "splash_image",
-   "fieldtype": "Attach Image",
-   "label": "Splash Image"
-  },
-  {
-   "fieldname": "main_page_background_color",
-   "fieldtype": "Color",
-   "label": "Workspace Background Color"
-  },
-  {
-   "fieldname": "main_page_card_container_background_color",
-   "fieldtype": "Color",
-   "label": "Card Container Background Color"
-  },
-  {
-   "fieldname": "cards_background_color",
-   "fieldtype": "Color",
-   "label": "Cards Background Color"
-  },
-  {
-   "fieldname": "cards_text_color",
-   "fieldtype": "Color",
-   "label": "Cards Text Color"
-  },
-  {
-   "fieldname": "cards_title_text_color",
-   "fieldtype": "Color",
-   "label": "Cards Title Text Color"
-  },
-  {
-   "fieldname": "buttons_section",
-   "fieldtype": "Section Break",
-   "label": "Buttons"
-  },
-  {
-   "fieldname": "column_break_awya",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_ojph",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "primary_buttons_text_color",
-   "fieldtype": "Color",
-   "label": "Primary Buttons Text Color"
-  },
-  {
-   "fieldname": "secondary_buttons_text_color",
-   "fieldtype": "Color",
-   "label": "Secondary Buttons Text Color"
-  },
-  {
-   "description": "change background color for form view page",
-   "fieldname": "form_background_color",
-   "fieldtype": "Color",
-   "label": "Form Background Color"
-  },
-  {
-   "description": "change background color for list view page",
-   "fieldname": "list_page_background_color",
-   "fieldtype": "Color",
-   "label": "List Page Background Color"
+   "default": "0",
+   "description": "When enabled, users can override the global skins with their preferred skin in My Settings.",
+   "fieldname": "allow_user_customization",
+   "fieldtype": "Check",
+   "label": "Allow desk users to select their own themes"
   }
  ],
  "hide_toolbar": 1,
@@ -182,7 +56,7 @@
  "issingle": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-02-16 08:56:30.114016",
+ "modified": "2026-08-28 12:55:08.394784",
  "modified_by": "Administrator",
  "module": "Owl Theme",
  "name": "Owl Theme Settings",
@@ -204,6 +78,7 @@
    "role": "All"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],

@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:user",
+ "creation": "2026-08-26 04:41:12.626837",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "light_theme_skin",
+  "dark_theme_skin"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "User",
+   "options": "User",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "light_theme_skin",
+   "fieldtype": "Link",
+   "label": "Light Theme Skin",
+   "link_filters": "[[\"Hoot Skin\",\"enabled\",\"=\",1],[\"Hoot Skin\",\"for_theme\",\"=\",\"Light\"]]",
+   "options": "Hoot Skin"
+  },
+  {
+   "fieldname": "dark_theme_skin",
+   "fieldtype": "Link",
+   "label": "Dark Theme Skin",
+   "link_filters": "[[\"Hoot Skin\",\"enabled\",\"=\",1],[\"Hoot Skin\",\"for_theme\",\"=\",\"Dark\"]]",
+   "options": "Hoot Skin"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-26 07:43:30.839380",
+ "modified_by": "Administrator",
+ "module": "Owl Theme",
+ "name": "User Theme Settings",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

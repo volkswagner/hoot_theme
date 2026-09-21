@@ -1,8 +1,12 @@
 
-
-
-	{% set theme_settings = {} %}
-
+{% set skin = frappe.db.get_single_value("Owl Theme Settings", "light_theme_skin") %}
+{% if skin %}
+	{% set theme_settings = frappe.get_doc("Hoot Skin", skin) %}
+	{% set primary_buttons_background_color_transparent = theme_settings.primary_buttons_background_color + "66" %}
+{% else %}
+	{% set theme_settings = None %}
+	{% set primary_buttons_background_color_transparent = None %}
+{% endif %}
 
 <!DOCTYPE html>
 <!-- Built on Frappe. https://frappeframework.com/ -->
@@ -62,7 +66,6 @@
 
 
 <style>
-
 	body{
 		background-color: {{theme_settings.background_color}};
 		background-image: url("{{ theme_settings.background_image}} ");
@@ -70,21 +73,51 @@
 		background-repeat: no-repeat;
 	}
 
-	/* .navbar {
-		background-color: {{theme_settings.navbar_color}};
-	} */
+	.widget{
+		background-color: {{theme_settings.main_page_card_container_background_color}};
+		border-color: url("{{ theme_settings.main_page_card_container_background_color}} ");
+	}
+
+	
+	.navbar.navbar-light {
+		background-color: {{theme_settings.navbar_background_color}} !important;
+		border-bottom: 1px solid {{theme_settings.navbar_background_color}} !important;
+	}
+
+	.navbar-brand {
+		color: {{theme_settings.navbar_text_color}} !important;
+	}
 
 	/* buttons */
 	/* .btn.btn-primary */
-	body .btn.btn-primary, body .btn.btn-primary:hover, body .btn.btn-primary:active, body .btn.btn-primary:focus {
+	body .btn.btn-primary, 
+	body .btn.btn-primary:hover, 
+	body .btn.btn-primary:active, 
+	body .btn.btn-primary:focus {
 		background-color: {{theme_settings.primary_buttons_background_color}} !important;
 		border-color: {{theme_settings.primary_buttons_background_color}} !important;
+		color: {{theme_settings.primary_buttons_text_color}} !important;
 	}
 	/* .btn.btn-default */
 
-	body .btn.btn-default, body .btn.btn-default:hover, body .btn.btn-default:active, body .btn.btn-default:focus {
-		background-color: {{theme_settings.secondary_buttons_background_color}} !important;
-		border-color: {{theme_settings.secondary_buttons_background_color}} !important;
+	body .btn.btn-primary * {
+		color: {{theme_settings.primary_buttons_text_color}} !important;
+	}
+
+	body .btn.btn-primary:focus {
+		box-shadow: inset 0 2px {{primary_buttons_background_color_transparent}}, 0 2px 2px {{primary_buttons_background_color_transparent}}, 0 0 0 2px {{primary_buttons_background_color_transparent}} !important; 
+	}
+
+	.form-control:focus {
+		box-shadow: 0 0 0 .1rem {{primary_buttons_background_color_transparent}} !important;
+	}
+
+	body .btn.btn-default, 
+	body .btn.btn-default:hover, 
+	body .btn.btn-default:active, 
+	body .btn.btn-default:focus {
+		background-color: {{theme_settings.default_buttons_background_color}} !important;
+		border-color: {{theme_settings.default_buttons_background_color}} !important;
 	}
 
 	.body-sidebar {
