@@ -1,4 +1,4 @@
-Based from tahir-3's [Owl Theme](https://github.com/tahir-3/owl_theme)
+Based on tahir-3's [Owl Theme](https://github.com/tahir-3/owl_theme)
 
 ## Owl Theme
 
