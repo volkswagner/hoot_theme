@@ -28,7 +28,7 @@ Owl Theme is a theming app for Frappe 15 that allows users to freely customize t
 
 6. separate site-wide skin and user-specific skin
 
-    You can let your users personalize their desks by allowing them to select skins for their desk.
+    You can let your users personalize their desks and select skins.
 <img width="1920" height="947" alt="separate site-wide skin and user-specific skin" src="https://github.com/user-attachments/assets/b45e8990-54de-4d64-810e-15ddf4583d5e" />
 
 6. real-time preview
