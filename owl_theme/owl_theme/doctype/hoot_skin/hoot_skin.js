@@ -34,7 +34,6 @@ frappe.ui.form.on("Hoot Skin", {
 
    add_default_logic(frm) {
       if (frm.doc.default) {
-         frm.page.set_indicator(__("Global Default"), "green");
          frm.set_df_property("enabled", "read_only", 1);
       }
    },

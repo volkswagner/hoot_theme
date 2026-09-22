@@ -25,16 +25,20 @@ frappe.widget.widget_factory.base.prototype.make_widget = function() {
             let widget_node = widget_container_node ? widget_container_node.querySelector('.number-widget-box') : null;
 
             if (widget_node) {
-                console.log("Found inner div:", widget_node);
-            
                 const background_color_rgb = $(widget_node).css("background-color");
                 const background_color_hex = owl_theme_utils.rbg_to_hex(background_color_rgb);
                 const text_color = owl_theme_utils.get_text_color(background_color_hex);
 
-                widget_node.querySelector(".dropdown").style.color = text_color;
-                widget_node.querySelector(".widget-title").style.color = text_color;
-                widget_node.querySelector(".widget-subtitle").style.color = owl_theme_utils.add_transparency(text_color, 0.75);
-                clearInterval(checkExist);
+                const dropdown = widget_node.querySelector(".dropdown");
+                const widget_title = widget_node.querySelector(".widget-title");
+                const widget_subtitle = widget_node.querySelector(".widget-subtitle");
+
+                if (dropdown && widget_title && widget_subtitle) {
+                    dropdown.style.color = text_color;
+                    widget_title.style.color = text_color;
+                    widget_subtitle.style.color = owl_theme_utils.add_transparency(text_color, 0.75);
+                    clearInterval(checkExist);
+                }
             }
         }, 100);
     }
