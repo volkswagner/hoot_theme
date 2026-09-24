@@ -53,7 +53,7 @@ frappe.ui.form.on("Hoot Skin", {
             border-width: 2px !important;
          }
          .overflow-scroll {
-            overflow-y: scroll;
+            overflow-y: scroll !important;
          }
 
          #login-page {
@@ -269,7 +269,7 @@ frappe.ui.form.on("Hoot Skin", {
          );
          
          $(`[data-label="${encodeURI(set_skin_button_name)}"]`)
-         .attr("title", "Sets the Light Theme Skin in Owl Theme Settings")
+         .attr("title", __("Sets the {0} Theme Skin in Owl Theme Settings", [frm.doc.for_theme]))
          .attr("data-toggle", "tooltip")
          .tooltip();
       }
@@ -479,7 +479,6 @@ frappe.ui.form.on("Hoot Skin", {
    autotheme(frm) {
       for_theme = frm.doc.for_theme.toLocaleLowerCase();
       const base_color = frm.doc.primary_buttons_background_color;
-      const theme_bg_color = window.getComputedStyle(document.documentElement).getPropertyValue('--bg-color');
       const background = get_background_color(base_color, for_theme);
       const background_button = get_background_button(base_color, for_theme);
       const foreground = get_foreground(base_color, for_theme);
@@ -609,8 +608,9 @@ frappe.ui.form.on("Hoot Skin", {
                   let values = autotheme_dialog.get_values();
                   palette.navbar_background_color = values.dont_colorize_navbar? undefined : base_color;
                   palette.navbar_text_color = values.dont_colorize_navbar? undefined : primary_btn_text;
+                  palette.color_navbar_dropdowns = values.dont_colorize_navbar? 0: 1;
 
-                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette))
+                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette, true))
                }
             },
             {
@@ -622,7 +622,7 @@ frappe.ui.form.on("Hoot Skin", {
                   let values = autotheme_dialog.get_values();
                   palette.main_page_background_color = values.dont_colorize_app_background? undefined : background;
 
-                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette))
+                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette, true))
                }
             },
             {
@@ -635,7 +635,7 @@ frappe.ui.form.on("Hoot Skin", {
                   palette.workspace_background_color = values.dont_colorize_workspace_background? undefined : background;
                   palette.workspace_card_container_background_color = values.dont_colorize_workspace_background? undefined : foreground;
                   palette.cards_background_color = values.dont_colorize_workspace_background? undefined : foreground;
-                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette))
+                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette, true))
                }
             },
             {
@@ -645,10 +645,10 @@ frappe.ui.form.on("Hoot Skin", {
                default: 0,
                onchange: function () {
                   let values = autotheme_dialog.get_values();
-                  palette.sidebar_background_color = values.dont_colorize_sidebar? theme_bg_color : foreground;
+                  palette.sidebar_background_color = values.dont_colorize_sidebar? undefined : foreground;
                   palette.sidebar_scrollbar_color = values.dont_colorize_sidebar? undefined : get_scrollbar_color(foreground, for_theme);
 
-                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette))
+                  autotheme_dialog.set_df_property("app_preview", "options", render_app_preview(palette, true))
                }
             },
             {
@@ -718,9 +718,12 @@ function render_buttons_preview(palette, theme) {
    `
 }
 
-function render_app_preview(palette, theme) {
+function render_app_preview(palette, for_dialog=false) {
    const bg_color = theme_bg[for_theme];
    const text_color = theme_color[for_theme];
+   const navbar_text = for_theme == "light"? "#383838": "white";
+   const sidebar_selected_background = for_theme == "light"? "#f3f3f3": "#232323";
+   const sidebar_selected_text = get_text_color(sidebar_selected_background);
 
    return `
       <h5>Workspace/Sidebar Preview</h5>
@@ -747,7 +750,7 @@ function render_app_preview(palette, theme) {
                      </div>
                      <ul class="navbar-nav">
                         <li class="nav-item">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.navbar_text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.navbar_text_color || navbar_text}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                         </svg>
                         </li>
@@ -765,8 +768,8 @@ function render_app_preview(palette, theme) {
                   </div>
                </div>
             </header>
-            <div class="content page-container" data-page-route="Workspaces" style="background-color: ${palette.main_page_background_color || bg_color} !important">
-               <div class="page-head flex" style="z-index: 0 !important; background-color: ${palette.main_page_background_color || bg_color} !important">
+            <div class="content page-container" data-page-route="Workspaces" style="background-color: ${palette.workspace_background_color || (palette.main_page_background_color || bg_color)} !important">
+               <div class="page-head flex" style="z-index: 0 !important; background-color: ${palette.workspace_background_color || (palette.main_page_background_color || bg_color)} !important">
                   <div class="container">
                      <div class="row flex align-center page-head-content justify-between">
                         <div class="col-md-4 col-sm-6 col-xs-7 page-title">
@@ -792,25 +795,25 @@ function render_app_preview(palette, theme) {
                         <div class="workflow-button-area btn-group pull-right hide"></div>
                         <div class="clearfix"></div>
                         <div class="row layout-main px-3" style="height: auto">
-                           <div class="col-3 layout-side-section overflow-scroll px-3" style="background-color: ${palette.sidebar_background_color || bg_color} !important">
+                           <div class="col-3 layout-side-section px-3" style="background-color: ${palette.sidebar_background_color || bg_color} !important">
                               <div class="list-sidebar overlay-sidebar">
                                  <div class="desk-sidebar list-unstyled sidebar-menu">
                                     <div class="standard-sidebar-section nested-container" data-title="Public">
                                        <div class="sidebar-item-container is-draggable" item-parent="" item-name="Home" item-public="1" item-is-hidden="0">
-                                          <div class="desk-sidebar-item standard-sidebar-item selected" style="background-color: ${palette.primary_buttons_background_color} !important">
+                                          <div class="desk-sidebar-item standard-sidebar-item selected" style="background-color: ${palette.sidebar_background_color? palette.primary_buttons_background_color : sidebar_selected_background} !important">
                                              <a href="/app/home" class="item-anchor">
                                                 <span class="sidebar-item-icon d-flex align-items-center" item-icon="stock">
-                                                   <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.primary_buttons_text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                                   <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.sidebar_background_color? palette.primary_buttons_text_color : sidebar_selected_text}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                                                 </span>
-                                                <span class="sidebar-item-label" style="color: ${palette.primary_buttons_text_color} !important">Item 1<span>
+                                                <span class="sidebar-item-label" style="color: ${palette.sidebar_background_color? palette.primary_buttons_text_color : sidebar_selected_text} !important">Item 1<span>
                                                 </span></span>
                                              </a>
                                           </div>
                                           <div class="sidebar-child-item nested-container"></div>
                                        </div>
-                                       <div class="sidebar-item-container is-draggable" item-parent="" item-name="PBR" item-public="1" item-is-hidden="0">
+                                       <div class="sidebar-item-container is-draggable" item-parent="" item-name="" item-public="1" item-is-hidden="0">
                                           <div class="desk-sidebar-item standard-sidebar-item ">
-                                             <a href="/app/pbr" class="item-anchor" title="PBR">
+                                             <a href="" class="item-anchor" title="">
                                                 <span class="sidebar-item-icon d-flex align-items-center" item-icon="users">
                                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="${text_color}"stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                                 </span>
@@ -824,7 +827,7 @@ function render_app_preview(palette, theme) {
                                  </div>
                               </div>
                            </div>
-                           <div class="col layout-main-section-wrapper overflow-scroll">
+                           <div class="col layout-main-section-wrapper overflow-scroll" style=${palette.workspace_scrollbar_color? palette.workspace_scrollbar_color + " transparent" : ""}>
                               <div class="layout-main-section" style="background-color: ${palette.workspace_card_container_background_color || bg_color} !important; border: 1px solid ${palette.workspace_page_card_container_background_color || bg_color} !important;">
                                  <div class="page-form row hide"></div>
                                  <div class="editor-js-container">
@@ -839,10 +842,10 @@ function render_app_preview(palette, theme) {
                                              <div class="ce-block col-6">
                                                 <div class="ce-block__content">
                                                    <div shortcut_name="Shortcut">
-                                                      <div class="widget shortcut-widget-box" style="background-color: ${palette.cards_background_color}">
+                                                      <div class="widget shortcut-widget-box" style="background-color: ${palette.cards_background_color || bg_color}">
                                                          <div class="widget-head">
                                                             <div class="widget-label">
-                                                               <div class="widget-title"><span class="ellipsis" style="color: ${text_color} !important">Shortcut Action</span></div>
+                                                               <div class="widget-title"><span class="ellipsis" style="color: ${palette.cards_title_text_color || text_color} !important">Shortcut Action</span></div>
                                                                <div class="widget-subtitle"></div>
                                                             </div>
                                                          </div>
@@ -853,10 +856,10 @@ function render_app_preview(palette, theme) {
                                              <div class="ce-block col-6">
                                                 <div class="ce-block__content">
                                                    <div shortcut_name="Shortcut">
-                                                      <div class="widget shortcut-widget-box" style="background-color: ${palette.cards_background_color}">
+                                                      <div class="widget shortcut-widget-box" style="background-color: ${palette.cards_background_color || bg_color}">
                                                          <div class="widget-head">
                                                             <div class="widget-label">
-                                                               <div class="widget-title"><span class="ellipsis" style="color: ${text_color} !important">Shortcut Action</span></div>
+                                                               <div class="widget-title"><span class="ellipsis" style="color: ${palette.cards_title_text_color || text_color} !important">Shortcut Action</span></div>
                                                                <div class="widget-subtitle"></div>
                                                             </div>
                                                          </div>
@@ -870,7 +873,7 @@ function render_app_preview(palette, theme) {
                                                       <div class="widget links-widget-box" data-widget-name="e6b487fff0" style="background-color: ${palette.cards_background_color || bg_color} !important">
                                                          <div class="widget-head">
                                                             <div class="widget-label">
-                                                               <div class="widget-title"><span class="ellipsis" title="Master Lists" style="color: ${text_color} !important">Links</span></div>
+                                                               <div class="widget-title"><span class="ellipsis" title="Master Lists" style="color: ${palette.cards_title_text_color || text_color} !important">Links</span></div>
                                                                <div class="widget-subtitle"></div>
                                                             </div>
                                                          </div>
@@ -878,15 +881,15 @@ function render_app_preview(palette, theme) {
                                                             <a href="/app/sales-invoice" class="link-item ellipsis
                                                                " type="Link">
                                                                <span class="link-content ellipsis">
-                                                                  <span class="link-text" style="color: ${text_color} !important">Link 1</span>
-                                                                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="${text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                                                  <span class="link-text" style="color: ${palette.cards_title_text_color || text_color} !important">Link 1</span>
+                                                                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.cards_title_text_color || text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                                                                </span>
                                                             </a>
                                                             <a href="/app/sales-order" class="link-item ellipsis
                                                                " type="Link">
                                                                <span class="link-content ellipsis">
-                                                                  <span class="link-text" style="color: ${text_color} !important">Link 2</span>
-                                                                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="${text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                                                  <span class="link-text" style="color: ${palette.cards_title_text_color || text_color} !important">Link 2</span>
+                                                                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="${palette.cards_title_text_color || text_color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                                                                </span>
                                                             </a>
                                                          </div>
@@ -897,14 +900,6 @@ function render_app_preview(palette, theme) {
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="workspace-footer">
-                                    <button data-label="New" class="btn btn-default ellipsis btn-new-workspace" style="background-color: ${palette.workspace_background_color || bg_color} !important; color: ${text_color} !important">
-                                       <span data-label="New">New</span>
-                                    </button>
-                                    <button class="btn btn-default btn-sm mr-2 btn-edit-workspace" data-label="Edit" style="background-color: ${palette.workspace_background_color || bg_color} !important; color: ${text_color} !important">
-                                       <span data-label="Edit">Edit</span>
-                                    </button>
                                  </div>
                               </div>
                            </div>

@@ -1033,8 +1033,13 @@ window.owl_theme_utils = {
                         color: ${skin_doc.primary_buttons_text_color} !important;
                     }
 
+                    .modal-header .btn:active {
+                        background-color: #dc3545 !important;
+                    }
+
                     [data-theme="dark"] .modal-header,
                     [data-theme="light"] .modal-header {
+                        --icon-stroke: ${skin_doc.primary_buttons_text_color} !important;
                         --icon-stroke: ${skin_doc.primary_buttons_text_color} !important;
                     }
                 `, "form-popups" + id_prefix);
