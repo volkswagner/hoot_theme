@@ -1,6 +1,6 @@
 Based on tahir-3's [Owl Theme](https://github.com/tahir-3/owl_theme)
 
-## Owl Theme
+## Owl Theme (AKA Hoot Theme)
 
 ### Overview
 Owl Theme is a theming app for Frappe 15 that allows users to freely customize their site to make it their own.
