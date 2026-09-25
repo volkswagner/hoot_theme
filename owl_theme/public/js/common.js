@@ -174,7 +174,7 @@ window.owl_theme_utils = {
     },
 
     create_stylesheet: function (skin_doc, is_preview=false) {
-        if (skin_doc.name == "-") return;
+        if (skin_doc.name == "-" || !skin_doc) return;
         if (is_preview) skin_doc.color_popups = 1;
 
         const navlink_hover_background_color = lighten_color(skin_doc.primary_buttons_background_color, 0.85);
