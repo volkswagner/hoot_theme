@@ -1,4 +1,3 @@
-<img width="2250" height="4288" alt="light" src="https://github.com/user-attachments/assets/fddeb1a6-a3f0-4d64-b224-714dd4053782" />
 Based on tahir-3's [Owl Theme](https://github.com/tahir-3/owl_theme)
 
 ## Owl Theme (AKA Hoot Theme)
