@@ -1,3 +1,4 @@
+<img width="2250" height="4288" alt="light" src="https://github.com/user-attachments/assets/fddeb1a6-a3f0-4d64-b224-714dd4053782" />
 Based on tahir-3's [Owl Theme](https://github.com/tahir-3/owl_theme)
 
 ## Owl Theme (AKA Hoot Theme)
@@ -46,8 +47,9 @@ Owl Theme is a theming app for Frappe 15 that allows users to freely customize t
 8. **Out-of-the-box skins**
 
    Owl Theme comes with pre-made skins to get you started.
-<img width="2250" height="4288" alt="Light theme skins" src="https://github.com/user-attachments/assets/b37b1e86-d81b-44ed-a0f6-002bba2529f4" />
-<img width="2250" height="3208" alt="Dark theme skins" src="https://github.com/user-attachments/assets/730f118d-a23f-4546-9b02-e704abe05dfb" />
+<img width="2250" height="4288" alt="Light theme skins" src="https://github.com/user-attachments/assets/477d443c-ad09-414a-a15f-f34738989bac" />
+<img width="2250" height="3208" alt="Dark theme skins" src="https://github.com/user-attachments/assets/d31f91af-eee1-4b0a-85b5-005bb7eed978" />
+
 
 
 ### Enhancements
