@@ -43,6 +43,13 @@ Owl Theme is a theming app for Frappe 15 that allows users to freely customize t
     Not only can you change the portal page background color but also the welcome message and the login form appearance.
 <img width="1920" height="947" alt="advanced portal page theming" src="https://github.com/user-attachments/assets/4c511f47-e4f1-4aa3-85e8-cd022845d1a9" />
 
+8. **Out-of-the-box skins**
+
+   Owl Theme comes with pre-made skins to get you started.
+<img width="2250" height="4288" alt="Light theme skins" src="https://github.com/user-attachments/assets/b37b1e86-d81b-44ed-a0f6-002bba2529f4" />
+<img width="2250" height="3208" alt="Dark theme skins" src="https://github.com/user-attachments/assets/730f118d-a23f-4546-9b02-e704abe05dfb" />
+
+
 ### Enhancements
 1. **Adaptive text coloring for Number Card widgets**
 
