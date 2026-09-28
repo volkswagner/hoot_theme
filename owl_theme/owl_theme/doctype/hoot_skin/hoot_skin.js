@@ -925,7 +925,7 @@ function render_site_preview(palette, theme) {
       let card_bg_blur = palette.background_image_blur != 0? parseInt(5*((palette.background_image_blur/100))) : 0;
       let card_bg_brightness = palette.background_image_brightness + 100;
 
-      form_style = `padding: 45px; margin: 0; max-width: 100%; backdrop-filter: blur(${card_bg_blur}px) brightness(${card_bg_brightness}%);`
+      form_style = `backdrop-filter: blur(${card_bg_blur}px) brightness(${card_bg_brightness}%);`
    }
    
    return `
@@ -936,7 +936,7 @@ function render_site_preview(palette, theme) {
                <h4 style="color: ${palette.app_name_color}">${palette.login_message || (__('Login to ') + (palette.app_name || "Frappe"))}</h4>
             </div>
             <div class="login-content page-card" style="${card_style}">
-               <div class="form-signin form-login" role="form" style="${form_style}">
+               <div class="form-signin form-login" role="form" style="padding: 45px; margin: 0; max-width: 100%; ${form_style}">
                   <div class="page-card-body">
                      <div class="form-group">
                         <label class="form-label sr-only" for="login_email_preview">Email or Username</label>

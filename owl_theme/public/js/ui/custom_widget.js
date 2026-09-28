@@ -17,10 +17,10 @@ frappe.widget.widget_factory.base.prototype.make_widget = function() {
     this.action_area = this.widget.find(".widget-control");
     this.head = this.widget.find(".widget-head");
     this.footer = this.widget.find(".widget-footer");
+
     if (this.widget_type == "number_card") {
         let widget_container = this['container'];
         let checkExist = setInterval(() => {
-            // Works whether myVar is native DOM element or jQuery object
             let widget_container_node = widget_container.jquery ? widget_container[0] : widget_container;
             let widget_node = widget_container_node ? widget_container_node.querySelector('.number-widget-box') : null;
 
@@ -31,11 +31,13 @@ frappe.widget.widget_factory.base.prototype.make_widget = function() {
 
                 const dropdown = widget_node.querySelector(".dropdown");
                 const widget_title = widget_node.querySelector(".widget-title");
+                const widget_number = widget_node.querySelector(".number");
                 const widget_subtitle = widget_node.querySelector(".widget-subtitle");
 
-                if (dropdown && widget_title && widget_subtitle) {
+                if (dropdown && widget_title && widget_number && widget_subtitle) {
                     dropdown.style.color = text_color;
                     widget_title.style.color = text_color;
+                    widget_number.style.color = widget_number.style.color || text_color;
                     widget_subtitle.style.color = owl_theme_utils.add_transparency(text_color, 0.75);
                     clearInterval(checkExist);
                 }
