@@ -10,7 +10,7 @@ Owl Theme is a theming app for Frappe 15 that allows users to freely customize t
 ### Features
 1. **Individual customization for Light and Dark themes called skins (Hoot Skin)**
 
-    You can assign a different skin for Light and Dark themes so your site can have distinct looks.
+    You can assign separate skins for Light and Dark themes so your site can have distinct looks.
 <img width="1920" height="947" alt="individual customization for Light and Dark themes called skins" src="https://github.com/user-attachments/assets/52cfcd3c-4af2-48c8-9b55-073b1380f1fa" />
 
 2. **Specific theming for buttons, the desk and the portal page**
