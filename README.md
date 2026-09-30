@@ -46,7 +46,7 @@ Owl Theme is a theming app for Frappe 15 that allows users to freely customize t
 
 8. **Out-of-the-box skins**
 
-   Owl Theme comes with pre-made skins to get you started.
+   Owl Theme comes with pre-made skins to get you started. You can also use these starters as is or as foundation for creating your own skin. 
 <img width="2250" height="4288" alt="Light theme skins" src="https://github.com/user-attachments/assets/477d443c-ad09-414a-a15f-f34738989bac" />
 <img width="2250" height="3208" alt="Dark theme skins" src="https://github.com/user-attachments/assets/d31f91af-eee1-4b0a-85b5-005bb7eed978" />
 
