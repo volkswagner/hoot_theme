@@ -28,17 +28,20 @@ frappe.widget.widget_factory.base.prototype.make_widget = function() {
                 const background_color_rgb = $(widget_node).css("background-color");
                 const background_color_hex = owl_theme_utils.rbg_to_hex(background_color_rgb);
                 const text_color = owl_theme_utils.get_text_color(background_color_hex);
+                const text_color_muted = text_color == "#fff"? owl_theme_utils.darken_color(text_color, 0.85) : owl_theme_utils.lighten_color(text_color, 0.2);
 
                 const dropdown = widget_node.querySelector(".dropdown");
                 const widget_title = widget_node.querySelector(".widget-title");
                 const widget_number = widget_node.querySelector(".number");
                 const widget_subtitle = widget_node.querySelector(".widget-subtitle");
+                const widget_stats = widget_node.querySelector(".percentage-stat-area");
 
-                if (dropdown && widget_title && widget_number && widget_subtitle) {
+                if ((dropdown && widget_title && widget_number && widget_subtitle) || widget_stats) {
                     dropdown.style.color = text_color;
-                    widget_title.style.color = text_color;
+                    widget_title.style.color = text_color_muted;
                     widget_number.style.color = widget_number.style.color || text_color;
-                    widget_subtitle.style.color = owl_theme_utils.add_transparency(text_color, 0.75);
+                    widget_subtitle.style.color = text_color_muted;
+                    widget_stats.style.color = text_color_muted;
                     clearInterval(checkExist);
                 }
             }

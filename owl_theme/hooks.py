@@ -251,6 +251,11 @@ doctype_js = {
 # }
 
 fixtures = [
-    {"dt": "Hoot Skin"}
+    {
+        "dt": "Property Setter",
+        "filters": [
+            ["module", "=", "Owl Theme"]
+        ]
+    }
 ]
 

@@ -1,0 +1,18 @@
+[
+ {
+  "default_value": null,
+  "doc_type": "Number Card",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "color",
+  "is_system_generated": 0,
+  "modified": "2026-09-30 12:08:37.198838",
+  "module": "Owl Theme",
+  "name": "Number Card-color-description",
+  "property": "description",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "Owl Theme handles the auto-coloring of card texts. Changing it is not recommended."
+ }
+]
