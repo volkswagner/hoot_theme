@@ -701,6 +701,10 @@ window.owl_theme_utils = {
                     .layout-main-section-wrapper {
                         scrollbar-color: ${skin_doc.workspace_scrollbar_color} transparent !important;
                     }
+
+                    .spacer {
+                        background-color: ${skin_doc.workspace_card_container_background_color} !important;
+                    }
                         
                     .layout-main-section {
                         background-color: ${skin_doc.workspace_card_container_background_color} !important;
@@ -735,7 +739,6 @@ window.owl_theme_utils = {
                     }
                     
                     .layout-main-section .indicator-pill,
-                    .spacer,
                     .cdx-block,
                     .onboarding-step.active,
                     .onboarding-step-footer .btn {
